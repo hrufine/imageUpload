@@ -1,0 +1,4 @@
+npm i @nestjs/config --save
+npm i -g cross-env
+
+npm install joi

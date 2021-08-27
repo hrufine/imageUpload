@@ -1,0 +1,21 @@
+npm i heroku -g
+heroku -v  
+heroku login  
+
+//heroku add on - postgress db
+
+1.heroku addons:create heroku-postgresql:hobby-dev -a task-management-jishnu
+        (postgresql-globular-51527 is the temp name now)
+
+execute below commands
+--------------------------
+heroku config:set NPM_CONFIG_PRODUCTION=false (to mitigate TS build)
+heroku config:set STAGE=prod
+heroku config:set NODE_ENV=production
+
+heroku config:set -Add all db parameters like this for the application
+
+
+git push heroku <the branch you want to push>:master
+
+https://task-management-jishnu.herokuapp.com/
