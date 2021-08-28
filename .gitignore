@@ -3,6 +3,8 @@
 /node_modules
 
 # Logs
+Dockerfile
+.openode
 .env
 logs
 *.log
