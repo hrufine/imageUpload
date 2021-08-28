@@ -3,12 +3,6 @@
 /**
  * Module dependencies.
  */
- var fs = require('fs');
- var dir = '../uploads';
- 
- if (!fs.existsSync(dir)){
-     fs.mkdirSync(dir);
- }
 var app = require('../app');
 var debug = require('debug')('image:server');
 var http = require('http');

@@ -23,6 +23,10 @@ const mailTransporter = nodemailer.createTransport({
     }
 });
 var fs = require('fs');
+var dir = './uploads';
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 const { env } = require('process');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
