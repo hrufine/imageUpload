@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="css/bootstrap-imageupload/bootstrap-imageupload.css" rel="stylesheet">
+        <link href="./stylesheets/style.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 70px;
+            }
+
+            .imageupload {
+                margin: 20px 0;
+            }
+        </style>
+</head>
+
+<body>
+    <form id="uploadForm"
+    enctype="multipart/form-data"
+    action="/api/v1/uploadImage"
+    method="post">
+        <div class="container">
+
+            <p style="font-size: 30px;color:azure;">Private and Secure Image Sharing</p>
+
+            <!-- bootstrap-imageupload. -->
+            <div class="imageupload panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Select Image file</h3>
+                    <div class="btn-group pull-right">
+                        <!-- <button type="button" class="btn btn-default active">File</button> -->
+                        <!-- <button type="button" class="btn btn-default">URL</button> -->
+                    </div>
+                </div>
+                <div class="file-tab panel-body">
+                    <label class="btn btn-primary btn-file">
+                        <span>Browse</span>
+                        <!-- The file is stored here. -->
+                        <input type="file" name="image-file">
+                    </label>
+                    <button type="button" class="btn btn-danger" style="display:none ;">Delete image</button>
+                    <button class="btn btn-success"  style="display:none ;" type="submit" value="Upload Image" name="submit">Upload image</button>
+                </div>
+                <div class="url-tab panel-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control hasclear" placeholder="Image URL">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default">Remove</button>
+                    <!-- The URL is stored here. -->
+                    <input type="hidden" name="image-url">
+                </div>
+            </div>
+
+        </div>
+</form>
+<h4 id="secretMsg" style="color: aquamarine;"></h4>
+<h2 id="secretUrl" style="color:wheat"></h2>
+ <button id="copyBtn" style="display: none;" type="button" onclick="copyToClipboard('#secretUrl')" class="btn btn-success">Copy Link</button>
+ <h3 id="copyMsg" style="color: coral;display:none;">Copied to clip board !!!</h3>
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="./javascripts/imageupload.js"></script>
+
+        <script>
+            var $imageupload = $('.imageupload');
+            $imageupload.imageupload({
+                maxWidth: 500,
+                maxHeight: 500,
+                maxFileSizeKb: 3048
+            });
+
+        </script>
+        <script type="text/javascript">
+            $(window).load(function() {
+            if(!location.hash)
+            return;
+            var hash = location.hash.replace('#','');
+            var expiringUrl = window.location.origin+"/tempImage/"+hash;
+            $("#uploadForm").hide();
+            $("#secretMsg").text("Your Secret URL is ready and the same will expire in 10seconds after sharing");
+            $("#secretUrl").text(expiringUrl);
+            $("#copyBtn").show();
+         }); 
+         function copyToClipboard(element) {
+            $("#copyMsg").show();
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+        </script>
+</body>
+</html>
+
